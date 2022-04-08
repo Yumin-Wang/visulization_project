@@ -37,7 +37,7 @@ subset = subset[subset["month"] == month]
 continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=0)
 subset = subset[subset["continent"] == continent]
 
-countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()), default=["China"])
+countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
 
 
