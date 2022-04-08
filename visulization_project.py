@@ -86,7 +86,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
     title=f'World map for {metric} averaged in {month} of {year}'
 )
 
-#Trend line
+#Trend line for metric
 metric_base = alt.Chart(subset
  ).mark_line().encode(
     x='date:O',
@@ -97,21 +97,29 @@ metric_base = alt.Chart(subset
     height=300
 ) 
 
-brush =  alt.selection(type='interval', encodings=['x'])
+brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}").transform_filter(brush)
-metric_chart_global = metric_base.properties(height=60).add_selection(brush)
-
-st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
+metric_chart_detail = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}").transform_filter(brush_metric)
+metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
+#Trend line for reproduction rate
+r_base = alt.Chart(subset
+ ).mark_line().encode(
+    x='date:O',
+    y=alt.Y(field="reproduction_rate",type='quantitative'),
+    color='Country:N'
+).properties(
+    width=400,
+    height=300
+) 
 
+brush_r =  alt.selection(type='interval', encodings=['x'])
+r_chart_detail = r_base.properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}").transform_filter(brush_r)
+r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
-
-
-
-
-
+st.altair_chart(r_chart_detail&r_chart_global, use_container_width=True)
+#st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
 
 
