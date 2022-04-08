@@ -5,7 +5,7 @@ import altair as alt
 import streamlit as st
 
 @st.cache
-covid = pd.read_csv("owid-covid-data.csv")
+covid = pd.read_csv("https://raw.githubusercontent.com/Yumin-Wang/visulization_project/main/owid-covid-data.csv?token=GHSAT0AAAAAABTK7C364VQCQREB2T32J3EMYSQS65A")
 country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str})[['Country','country-code']]
 covid = covid[['iso_code','continent','location','date','total_cases_per_million','new_cases_per_million','total_deaths_per_million','reproduction_rate','population']]
 covid['date'] = pd.to_datetime(covid['date'])
