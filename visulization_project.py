@@ -25,13 +25,15 @@ def load_data():
 
 df = load_data()
 
+st.write("## Covid related graph")
+
 year=st.radio(label='Year', options=df['year'].unique(), index=0)
 subset = df[df["year"] == year]
 
 month=st.selectbox(label='Month', options=list(subset['month'].unique()), index=0)
 subset = subset[subset["month"] == month]
 
-st.write("## Covid related graph")
+
 
 
 
