@@ -99,7 +99,8 @@ metric_base = alt.Chart(subset
 
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}").transform_filter(brush_metric)
+metric_chart_detail = metric_base.transform_filter(brush_metric)
+#.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
 metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
@@ -115,7 +116,8 @@ r_base = alt.Chart(subset
 ) 
 
 brush_r =  alt.selection(type='interval', encodings=['x'])
-r_chart_detail = r_base.properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}").transform_filter(brush_r)
+r_chart_detail = r_base.transform_filter(brush_r)
+#.properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}")
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
