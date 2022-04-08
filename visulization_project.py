@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
+import streamlit as st
 
-
+@st.cache
 covid = pd.read_csv("owid-covid-data.csv")
 country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str})[['Country','country-code']]
 covid = covid[['iso_code','continent','location','date','total_cases_per_million','new_cases_per_million','total_deaths_per_million','reproduction_rate','population']]
@@ -20,7 +21,7 @@ covid.rename(columns = {'location' : 'Country'}, inplace = True)
 covid = covid.merge(country_df,how='left',on='Country')
 covid.dropna(inplace=True)
 
-
+st.write("## Covid related graph")
 
 
 
