@@ -93,7 +93,7 @@ metric_base = alt.Chart(subset
     y=alt.Y(field=metric,type='quantitative'),
     color='Country:N'
 ).properties(
-    width=400,
+    width=200,
     height=300
 ) 
 
@@ -110,7 +110,7 @@ r_base = alt.Chart(subset
     y=alt.Y(field="reproduction_rate",type='quantitative'),
     color='Country:N'
 ).properties(
-    width=400,
+    width=200,
     height=300
 ) 
 
