@@ -25,11 +25,15 @@ def load_data():
     return covid
 
 df = load_data()
+source = alt.topo_feature(data.world_110m.url, 'countries')
 
 st.write("## Covid related graph")
 
 year=st.radio(label='Year', options=df['year'].unique(), index=0)
 subset = df[df["year"] == year]
+
+covid_map_data = subset.copy()
+covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 month=st.selectbox(label='Month', options=list(subset['month'].unique()), index=0)
 subset = subset[subset["month"] == month]
@@ -40,11 +44,50 @@ subset = subset[subset["continent"] == continent]
 countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
 
+#World_map
+width_worldmap=600
+height_worldmap=300
 
+background = alt.Chart(source
+).mark_geoshape(
+    fill='#aaa',
+    stroke='white'
+).properties(
+    width=width_worldmap,
+    height=height_worldmap
+).project('equirectangular')
 
+worldmap_base =alt.Chart(source
+    ).properties( 
+        width=width_worldmap,
+        height=height_worldmap
+    ).project('equirectangular'
+    ).transform_lookup(
+        lookup="id",
+        from_=alt.LookupData(covid_map_data, "country-code", ["total_cases_per_million", 'population']),
+    )
 
+# fix the color schema so that it will not change upon user selection
+rate_scale = alt.Scale(domain=[covid_map_data['total_cases_per_million'].min(), covid_map_data['total_cases_per_million'].max()])
+rate_color = alt.Color(field="total_cases_per_million", type="quantitative", scale=rate_scale)
+chart_rate = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
+    ######################
+    # P3.1 map visualization showing the mortality rate
+    # add your code here
+    ######################
+    # P3.3 tooltip
+    # add your code here
+    color=rate_color,
+        tooltip=[
+            
+            alt.Tooltip("total_cases_per_million:Q", title="total_cases_per_million averged over year"),
+            alt.Tooltip("Country:N", title="Country"),
+        ]
+    ).properties(
+    title='12345'
+)
 
-
+st.altair_chart(chart_rate, use_container_width=True)
 
 
 
