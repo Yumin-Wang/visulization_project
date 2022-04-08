@@ -3,7 +3,7 @@ import numpy as np
 import datetime as dt
 import altair as alt
 import streamlit as st
-from vega_datasets import data
+
 
 @st.cache
 def load_data():
@@ -26,7 +26,7 @@ def load_data():
     return covid
 
 df = load_data()
-source = alt.topo_feature(data.world_110m.url, 'countries')
+source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
 st.write("## Covid related graph")
 
