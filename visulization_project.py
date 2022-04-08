@@ -118,7 +118,12 @@ brush_r =  alt.selection(type='interval', encodings=['x'])
 r_chart_detail = r_base.properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}").transform_filter(brush_r)
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
-st.altair_chart(r_chart_detail&r_chart_global, use_container_width=True)
+
+chart=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(
+    # two donut charts should use different color schema
+    color='independent'
+)
+st.altair_chart(chart, use_container_width=True)
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
 
