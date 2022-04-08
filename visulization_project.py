@@ -4,7 +4,7 @@ import datetime as dt
 import altair as alt
 import streamlit as st
 
-
+#read data
 @st.cache
 def load_data():
     covid = pd.read_csv("https://raw.githubusercontent.com/Yumin-Wang/visulization_project/main/owid-covid-data.csv")
@@ -26,6 +26,7 @@ def load_data():
     return covid
 
 df = load_data()
+#read map background data
 source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
 st.write("## Covid related graph")
@@ -71,16 +72,10 @@ worldmap_base =alt.Chart(source
         from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
     )
 
-# fix the color schema so that it will not change upon user selection
+
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
 rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
-    ######################
-    # P3.1 map visualization showing the mortality rate
-    # add your code here
-    ######################
-    # P3.3 tooltip
-    # add your code here
     color=rate_color,
         tooltip=[
             
@@ -91,7 +86,30 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
     title=f'World map for {metric} averaged in {month} of {year}'
 )
 
-st.altair_chart(chart_worldmap, use_container_width=True)
+#Trend line
+metric_base = alt.Chart(subset
+ ).mark_line().encode(
+    x='date:O',
+    y=alt.Y(field=metric,type='quantitative'),
+    color='Country:N'
+).properties(
+    width=400,
+    height=300
+) # add your code here
+
+metric_chart = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
+
+st.altair_chart(metric_chart, use_container_width=True)
+
+
+
+
+
+
+
+
+
+#st.altair_chart(chart_worldmap, use_container_width=True)
 
 
 
