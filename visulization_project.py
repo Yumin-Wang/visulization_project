@@ -74,7 +74,7 @@ worldmap_base =alt.Chart(source
 # fix the color schema so that it will not change upon user selection
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
 rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
-chart_rate = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
+chart_worldmap = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     ######################
     # P3.1 map visualization showing the mortality rate
     # add your code here
@@ -84,14 +84,14 @@ chart_rate = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encod
     color=rate_color,
         tooltip=[
             
-            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averged over month and year"),
+            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averged over month"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
     title=f'World map for {metric} averaged in {month} of {year}'
-)
+)+background
 
-st.altair_chart(chart_rate, use_container_width=True)
+st.altair_chart(chart_worldmap, use_container_width=True)
 
 
 
