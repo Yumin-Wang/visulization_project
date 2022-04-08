@@ -99,7 +99,7 @@ metric_base = alt.Chart(subset
 
 brush =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}").encode(alt.X('date:O',scale=alt.Scale(domain=brush)))
+metric_chart_detail = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}").transform_filter(brush)
 metric_chart_global = metric_base.properties(height=60).add_selection(brush)
 
 st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
