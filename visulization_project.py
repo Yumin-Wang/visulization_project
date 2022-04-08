@@ -18,6 +18,7 @@ def load_data():
     covid['new_cases_per_million']= covid['new_cases_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['total_deaths_per_million']= covid['total_deaths_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['reproduction_rate']= covid['reproduction_rate'].fillna(method='bfill').fillna(method='ffill')
+    country_df['Country'] = country_df['Country'].replace(['United States of America','United Kingdom of Great Britain and Northern Ireland'],['United States','United Kingdom'])
     covid.rename(columns = {'location' : 'Country'}, inplace = True)
     covid = covid.merge(country_df,how='left',on='Country')
     covid.dropna(inplace=True)
@@ -36,7 +37,11 @@ subset = subset[subset["month"] == month]
 continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=0)
 subset = subset[subset["continent"] == continent]
 
-
+countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()), default=[
+    "China",
+    "United States"
+])
+subset = subset[subset["Country"].isin(countries)]
 
 
 
