@@ -93,8 +93,8 @@ metric_base = alt.Chart(subset
     y=alt.Y(field=metric,type='quantitative'),
     color='Country:N'
 ).properties(
-    width=100,
-    height=200
+    width=400,
+    height=300
 ) # add your code here
 
 metric_chart = metric_base.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
