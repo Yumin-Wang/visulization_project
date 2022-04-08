@@ -33,17 +33,20 @@ st.write("## Covid related graph")
 year=st.radio(label='Year', options=df['year'].unique(), index=0)
 subset = df[df["year"] == year]
 
-covid_map_data = subset.copy()
-covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 month=st.selectbox(label='Month', options=list(subset['month'].unique()), index=0)
 subset = subset[subset["month"] == month]
+
+covid_map_data = subset.copy()
+covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=0)
 subset = subset[subset["continent"] == continent]
 
 countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
+
+metric = st.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=0)
 
 #World_map
 width_worldmap=600
@@ -65,12 +68,12 @@ worldmap_base =alt.Chart(source
     ).project('equirectangular'
     ).transform_lookup(
         lookup="id",
-        from_=alt.LookupData(covid_map_data, "country-code", ["Country","total_cases_per_million", 'population']),
+        from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
     )
 
 # fix the color schema so that it will not change upon user selection
-rate_scale = alt.Scale(domain=[covid_map_data['total_cases_per_million'].min(), covid_map_data['total_cases_per_million'].max()])
-rate_color = alt.Color(field="total_cases_per_million", type="quantitative", scale=rate_scale)
+rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
+rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_rate = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     ######################
     # P3.1 map visualization showing the mortality rate
@@ -81,11 +84,11 @@ chart_rate = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encod
     color=rate_color,
         tooltip=[
             
-            alt.Tooltip("total_cases_per_million:Q", title="total_cases_per_million averged over year"),
+            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averged over month and year"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
-    title='12345'
+    title=f'World map for {metric} averaged in {month} of {year}'
 )
 
 st.altair_chart(chart_rate, use_container_width=True)
