@@ -33,6 +33,9 @@ subset = df[df["year"] == year]
 month=st.selectbox(label='Month', options=list(subset['month'].unique()), index=0)
 subset = subset[subset["month"] == month]
 
+continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=0)
+subset = subset[subset["continent"] == continent]
+
 
 
 
