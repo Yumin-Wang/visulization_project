@@ -3,6 +3,7 @@ import numpy as np
 import datetime as dt
 import altair as alt
 import streamlit as st
+from vega_datasets import data
 
 @st.cache
 def load_data():
