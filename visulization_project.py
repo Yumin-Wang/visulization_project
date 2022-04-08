@@ -93,14 +93,13 @@ metric_base = alt.Chart(subset
     y=alt.Y(field=metric,type='quantitative'),
     color='Country:N'
 ).properties(
-    width=200,
+    width=400,
     height=300
 ) 
 
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.transform_filter(brush_metric)
-#.properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
+metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
 metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
@@ -111,13 +110,12 @@ r_base = alt.Chart(subset
     y=alt.Y(field="reproduction_rate",type='quantitative'),
     color='Country:N'
 ).properties(
-    width=200,
+    width=400,
     height=300
 ) 
 
 brush_r =  alt.selection(type='interval', encodings=['x'])
-r_chart_detail = r_base.transform_filter(brush_r)
-#.properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}")
+r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}")
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
