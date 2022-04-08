@@ -15,7 +15,7 @@ def load_data():
     covid['month'] = covid['date'].dt.strftime('%B')
     covid['year'] = covid['date'].dt.year
     covid['date'] = covid['date'].dt.strftime('%d')
-    covid['total_cases_per_million']= covid['total_deaths_per_million'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_cases_per_million']= covid['total_cases_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['new_cases_per_million']= covid['new_cases_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['total_deaths_per_million']= covid['total_deaths_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['reproduction_rate']= covid['reproduction_rate'].fillna(method='bfill').fillna(method='ffill')
