@@ -65,7 +65,7 @@ worldmap_base =alt.Chart(source
     ).project('equirectangular'
     ).transform_lookup(
         lookup="id",
-        from_=alt.LookupData(covid_map_data, "country-code", ["total_cases_per_million", 'population']),
+        from_=alt.LookupData(covid_map_data, "country-code", ["Country","total_cases_per_million", 'population']),
     )
 
 # fix the color schema so that it will not change upon user selection
