@@ -25,6 +25,9 @@ def load_data():
 
 df = load_data()
 
+year=st.radio(label='Year', options=df['year'].unique(), index=0)
+subset = df[df["year"] == year]
+
 st.write("## Covid related graph")
 
 
