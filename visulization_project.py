@@ -119,8 +119,13 @@ r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare rep
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
-chart=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(
+chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(
     # two donut charts should use different color schema
+    color='independent'
+)
+
+chart=alt.vconcat(chart_trend, chart_worldmap
+).resolve_scale(
     color='independent'
 )
 st.altair_chart(chart, use_container_width=True)
