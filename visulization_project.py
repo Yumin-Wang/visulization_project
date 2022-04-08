@@ -91,7 +91,7 @@ chart_worldmap = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).e
     title=f'World map for {metric} averaged in {month} of {year}'
 )
 
-st.altair_chart(chart_worldmap+background, use_container_width=True)
+st.altair_chart(background+chart_worldmap, use_container_width=True)
 
 
 
