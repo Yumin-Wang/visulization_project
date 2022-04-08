@@ -74,7 +74,7 @@ worldmap_base =alt.Chart(source
 # fix the color schema so that it will not change upon user selection
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
 rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
-chart_worldmap = worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
+chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     ######################
     # P3.1 map visualization showing the mortality rate
     # add your code here
