@@ -41,7 +41,7 @@ subset = subset[subset["month"] == month]
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=0)
+continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=3)
 subset = subset[subset["continent"] == continent]
 
 countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
@@ -51,7 +51,7 @@ pie_data = subset.copy()
 pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
-metric = st.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=0)
+metric = st.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
 
 #World_map
 width_worldmap=600
