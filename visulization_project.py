@@ -132,12 +132,14 @@ donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Pie chart for {metric} averaged in {month} of {year} for selected countries in {continent} ')
 
-st.altair_chart(donut, use_container_width=True)
 
-#chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
+chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
 
-#chart=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
-#st.altair_chart(chart, use_container_width=True)
+chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
+
+chart_final = alt.vconcat(chart_trend_worldmap, donut).resolve_scale(color='independent')
+
+st.altair_chart(chart_final, use_container_width=True)
 
 
 
@@ -145,7 +147,7 @@ st.altair_chart(donut, use_container_width=True)
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
-
+#st.altair_chart(donut, use_container_width=True)
 
 
 
