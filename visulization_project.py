@@ -47,6 +47,10 @@ subset = subset[subset["continent"] == continent]
 countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
 
+pie_data = subset.copy()
+pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
+
+
 metric = st.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=0)
 
 #World_map
@@ -119,16 +123,26 @@ r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare rep
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
-chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(
-    # two donut charts should use different color schema
-    color='independent'
-)
+#Pie chart
+donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
+    theta=alt.Theta(field=metric, type="quantitative"),
+    color=alt.Color(field="Country", type="nominal"),
+    tooltip=[
+            alt.Tooltip(field=metric, type="quantitative", title=f"{metric} averaged over month"),
+            alt.Tooltip("Country:N", title="Country")]
+            ).properties(width=250,title=f'Pie chart for {metric} averaged in {month} of {year} for selected countries in {continent} ')
 
-chart=alt.vconcat(chart_trend, chart_worldmap
-).resolve_scale(
-    color='independent'
-)
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(donut, use_container_width=True)
+
+#chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
+
+#chart=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
+#st.altair_chart(chart, use_container_width=True)
+
+
+
+
+
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
 
