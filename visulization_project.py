@@ -32,6 +32,9 @@ df = load_data()
 #read map background data
 source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
+#reformat column metric names
+df.rename(columns = {'NewCasesperMillion':'new_cases_per_million'}, inplace = True)
+
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
 year=st.sidebar.radio(label='Year', options=df['year'].unique(), index=2)
