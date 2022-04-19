@@ -42,10 +42,10 @@ subset = subset[subset["month"] == month]
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-continent=st.selectbox(label='Continent', options=list(subset['continent'].unique()), index=3)
+continent=st.sidebar.selectbox(label='Continent', options=list(subset['continent'].unique()), index=3)
 subset = subset[subset["continent"] == continent]
 
-countries=st.multiselect(label='Countries', options=list(subset['Country'].unique()))
+countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
 
 pie_data = subset.copy()
