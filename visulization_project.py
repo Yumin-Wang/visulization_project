@@ -85,7 +85,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
     color=rate_color,
         tooltip=[
             
-            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averged over month"),
+            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averaged over month"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
