@@ -32,7 +32,7 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-year=st.checkbox(label='Year', options=df['year'].unique(), index=2)
+year=st.radio(label='Year', options=df['year'].unique(), index=2)
 subset = df[df["year"] == year]
 
 
