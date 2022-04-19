@@ -35,7 +35,6 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 year=st.sidebar.radio(label='Year', options=df['year'].unique(), index=2)
 subset = df[df["year"] == year]
 
-
 month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
 subset = subset[subset["month"] == month]
 
@@ -52,7 +51,7 @@ pie_data = subset.copy()
 pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
-metric = st.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
+metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
 
 #World_map
 width_worldmap=600
