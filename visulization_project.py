@@ -56,7 +56,7 @@ pie_data = subset.copy()
 pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
-metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
+metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','NewCasesperMillion','total_deaths_per_million'], index=1)
 
 #World_map
 width_worldmap=600
