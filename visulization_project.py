@@ -4,7 +4,6 @@ import datetime as dt
 import altair as alt
 import streamlit as st
 
-st.write("## Test")
 
 #read data
 @st.cache
@@ -31,7 +30,7 @@ df = load_data()
 #read map background data
 source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
-st.write("## Covid related graph")
+st.write("## COVID-19 Worldwide Metrics Over Time")
 
 year=st.radio(label='Year', options=df['year'].unique(), index=2)
 subset = df[df["year"] == year]
