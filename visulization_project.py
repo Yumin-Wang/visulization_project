@@ -27,6 +27,9 @@ def load_data():
     return covid
 
 df = load_data()
+df.rename(columns = {'new_cases_per_million':'New Cases per Million'}, inplace = True)
+
+
 #read map background data
 source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
@@ -51,7 +54,7 @@ pie_data = subset.copy()
 pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
-metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
+metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','New Cases per Million'','total_deaths_per_million'], index=1)
 
 #World_map
 width_worldmap=600
