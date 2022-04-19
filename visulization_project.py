@@ -32,11 +32,11 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-year=st.radio(label='Year', options=df['year'].unique(), index=2)
+year=st.sidebar.radio(label='Year', options=df['year'].unique(), index=2)
 subset = df[df["year"] == year]
 
 
-month=st.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
 subset = subset[subset["month"] == month]
 
 covid_map_data = subset.copy()
