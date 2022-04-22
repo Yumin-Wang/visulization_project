@@ -96,8 +96,7 @@ rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     color=rate_color,
         tooltip=[
-            
-            alt.Tooltip(field=metric,type='quantitative', title=f"{metric_title} averaged over month"),
+            alt.Tooltip(field=round(metric, 6),type='quantitative', title=f"{metric_title} averaged over month"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
