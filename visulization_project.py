@@ -90,7 +90,7 @@ worldmap_base =alt.Chart(source
         selector
     )
 
-metric_number = round(int(metric), 4)
+metric_number = round(float(metric), 4)
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
 rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
