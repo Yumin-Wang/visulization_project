@@ -38,7 +38,11 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 year=st.sidebar.radio(label='Year', options=df['year'].unique(), index=2)
 subset = df[df["year"] == year]
 
-month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+month_slider = alt.binding_range(min=min(subset['month']), max=max(subset['month']), step=1)
+month=st.sidebar.slider(label='Month',options=list(subset['month'].unique()), index=2, bind=month_slider, init={'month' : 'January'})
+#month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+
+                                   
 subset = subset[subset["month"] == month]
 
 covid_map_data = subset.copy()
