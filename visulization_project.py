@@ -64,12 +64,8 @@ metric_title = metric.replace('_', ' ')
 width_worldmap=600
 height_worldmap=300
 
-#binding = alt.binding_select(options=list(countries))
-selection = alt.selection_single(fields=['Countries'], bind=countries)
-
-
-column_select = alt.selection_single(fields=['Countries'],
-                                     bind=alt.binding_select(options=countries, name='column'))
+selector = alt.selection_single(
+    on="click")
 
 background = alt.Chart(source
 ).mark_geoshape(
@@ -89,7 +85,7 @@ worldmap_base =alt.Chart(source
         lookup="id",
         from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
     ).add_selection(
-        column_select
+        selector
 )
 
 
