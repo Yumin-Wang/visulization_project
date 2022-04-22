@@ -36,7 +36,7 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
 
-year=st.sidebar.slider(label='Year', min=min(df['year']), max=max(df['year']), init={'year': 2020}, step=1, value=min(df['year']))
+year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), init={'year': 2020}, step=1, value=min(df['year']))
 
 
 #year=st.sidebar.radio(label='Year', options=df['year'].unique(), index=2)
