@@ -55,7 +55,7 @@ pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
 metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
-#metric = metric.replace('_', '')
+metric_title = metric.replace('_', '')
 
 #World_map
 width_worldmap=600
@@ -87,7 +87,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
     color=rate_color,
         tooltip=[
             
-            alt.Tooltip(field=metric,type='quantitative', title=f"{metric} averaged over month"),
+            alt.Tooltip(field=metric,type='quantitative', title=f"{metric_title} averaged over month"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
@@ -107,7 +107,7 @@ metric_base = alt.Chart(subset
 
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric} in selected countries in {continent} during {month} of {year}")
+metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in {continent} during {month} of {year}")
 metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
@@ -132,9 +132,9 @@ donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta=alt.Theta(field=metric, type="quantitative"),
     color=alt.Color(field="Country", type="nominal"),
     tooltip=[
-            alt.Tooltip(field=metric, type="quantitative", title=f"{metric} average over month"),
+            alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Pie chart for {metric} averaged in {month} of {year} for selected countries in {continent} ')
+            ).properties(width=250,title=f'Pie chart for {metric_title} averaged in {month} of {year} for selected countries in {continent} ')
 
 
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
