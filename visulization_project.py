@@ -43,6 +43,7 @@ month_dict ={1: 'January', 2 : 'February', 3:'March', 4:'April', 5:'May', 6:'Jun
 month=st.sidebar.slider(label='Year', min_value=min(list(month_dict.keys())), max_value=max(list(month_dict.keys())), step=1, value=min(list(month_dict.keys())))
 
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+print(month_dict[month])
                                    
 subset = subset[subset["month"] == month_dict[month]]
 
