@@ -3,6 +3,7 @@ import numpy as np
 import datetime as dt
 import altair as alt
 import streamlit as st
+import datetime
 
 
 #read data
@@ -39,11 +40,12 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-
-month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
-
+month_dictionary = {'1':'Janauary','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December'}
+selected_months = list(subset['month'].unique())
+selected_months_number = [datetime.datetime.strptime(m, "%b").month for m in selected_months]
+month=st.sidebar.selectbox(label='Month', options=selected_months_number, index=2)
                                    
-subset = subset[subset["month"] == month]
+subset = subset[subset["month"] == month_dictionary[month]]
 
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
