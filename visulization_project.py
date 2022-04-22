@@ -104,7 +104,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 metric_base = alt.Chart(subset
  ).mark_line().encode(
     x='date:O',
-    y=alt.Y(field=metric,type='quantitative'),
+    y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ')),
     color='Country:N'
 ).properties(
     width=400,
