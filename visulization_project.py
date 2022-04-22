@@ -40,7 +40,7 @@ year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df
 subset = df[df["year"] == year]
 
 month_dict ={1: 'January', 2 : 'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}
-month=st.sidebar.slider(label='Year', min_value=min(list(month_dict.keys())), max_value=max(list(month_dict.keys())), step=1, value=min(list(month_dict.keys())))
+month=st.sidebar.slider(label='Month', min_value=min(list(month_dict.keys())), max_value=max(list(month_dict.keys())), step=1, value=min(list(month_dict.keys())))
 
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
