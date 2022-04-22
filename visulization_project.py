@@ -64,6 +64,9 @@ metric_title = metric.replace('_', ' ')
 width_worldmap=600
 height_worldmap=300
 
+selector = alt.selection_single(
+    on="click")
+
 background = alt.Chart(source
 ).mark_geoshape(
     fill='#aaa',
@@ -78,7 +81,9 @@ worldmap_base =alt.Chart(source
         width=width_worldmap,
         height=height_worldmap
     ).project('equirectangular'
-    ).transform_lookup(
+    ).add_selection(
+        selector
+        ).transform_lookup(
         lookup="id",
         from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
     )
