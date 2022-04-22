@@ -55,6 +55,7 @@ pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
 metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
+metric = metric.replace('_', '')
 
 #World_map
 width_worldmap=600
