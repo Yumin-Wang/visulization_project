@@ -42,7 +42,7 @@ subset = df[df["year"] == year]
 
 month_dictionary = {'1':'Janauary','2':'February','3':'March','4':'April','5':'May','6':'June','7':'July','8':'August','9':'September','10':'October','11':'November','12':'December'}
 selected_months = list(subset['month'].unique())
-selected_months_number = [datetime.datetime.strptime(m, "%b").month for m in selected_months]
+selected_months_number = [datetime.datetime.strptime(m, "%B").month for m in selected_months]
 month=st.sidebar.selectbox(label='Month', options=selected_months_number, index=2)
                                    
 subset = subset[subset["month"] == month_dictionary[month]]
