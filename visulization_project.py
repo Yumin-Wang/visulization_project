@@ -83,9 +83,11 @@ worldmap_base =alt.Chart(source
     ).project('equirectangular'
     ).add_selection(
         selector
-        ).transform_lookup(
+    ).transform_lookup(
         lookup="id",
         from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
+    ).transform_filter(
+        selector
     )
 
 
