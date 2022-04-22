@@ -36,8 +36,9 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
 
-year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
-subset = df[df["year"] == year]
+#year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
+subset = df
+#[df["year"] == year]
 
 
 month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
@@ -101,7 +102,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 #Trend line for metric
 metric_base = alt.Chart(subset
  ).mark_line().encode(
-    x=alt.X('year:O', title='Date'),
+    x=alt.X('year:O', title='Year'),
     y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
 ).properties(
