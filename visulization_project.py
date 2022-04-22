@@ -45,9 +45,9 @@ subset = df[df["year"] == year]
 # selected_months_number = [datetime.datetime.strptime(m, "%B").month for m in selected_months]
 # month=st.sidebar.slider(label='Month', min_value=min(selected_months_number), max_value=max(selected_months_number), step=1, value=min(selected_months_number))
 
-month=st.sidebar.selectbox(label='Month', options=selected_months_number, index=2)
+month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
-subset = subset[subset["month"] == month_dictionary[month]]
+subset = subset[subset["month"] == month]
 
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
