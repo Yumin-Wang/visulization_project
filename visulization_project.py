@@ -101,7 +101,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 #Trend line for metric
 metric_base = alt.Chart(subset
  ).mark_line().encode(
-    x=alt.X('year:O', title='Date'),
+    x=alt.X('date:O', title='Date'),
     y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
 ).properties(
