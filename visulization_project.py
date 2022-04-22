@@ -84,9 +84,9 @@ worldmap_base =alt.Chart(source
     ).transform_lookup(
         lookup="id",
         from_=alt.LookupData(covid_map_data, "country-code", ["Country",metric, 'population']),
-    ).transform_filter(
+    ).add_selection(
         selector
-)
+).transform_lookup()
 
 
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
