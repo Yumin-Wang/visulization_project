@@ -131,7 +131,7 @@ donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
     theta=alt.Theta(field=metric, type="quantitative"),
     color=alt.Color(field="Country", type="nominal"),
     tooltip=[
-            alt.Tooltip(field=metric, type="quantitative", title=f"{month} average over month"),
+            alt.Tooltip(field=metric, type="quantitative", title=f"{metric} average over month"),
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Pie chart for {metric} averaged in {month} of {year} for selected countries in {continent} ')
 
