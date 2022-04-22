@@ -37,7 +37,7 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 
 
 #year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
-year = st.sidebar.multiselect(label='Month', options=list(df['year'].unique()), index=1)
+year = st.sidebar.multiselect(label='Year', options=list(df['year'].unique()), index=1)
 subset = df[df["year"] == year]
 
 
