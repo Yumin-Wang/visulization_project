@@ -90,13 +90,13 @@ worldmap_base =alt.Chart(source
         selector
     )
 
-
+metric_number = round(int(metric), 4)
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
 rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     color=rate_color,
         tooltip=[
-            alt.Tooltip(field=metric,type='quantitative', title=f"{metric_title} averaged over month"),
+            alt.Tooltip(field=metric_number,type='quantitative', title=f"{metric_title} averaged over month"),
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
