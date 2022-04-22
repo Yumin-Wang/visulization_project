@@ -96,7 +96,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
-    title=f'World map for {metric_title} averaged in {month} of {year}'
+    title=f'World map for {metric_title} averaged in {month}'
 )
 
 #Trend line for metric
@@ -112,7 +112,7 @@ metric_base = alt.Chart(subset
 
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in {continent} during {month} of {year}")
+metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in {continent} during {month}")
 metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
@@ -128,7 +128,7 @@ r_base = alt.Chart(subset
 ) 
 
 brush_r =  alt.selection(type='interval', encodings=['x'])
-r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}")
+r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in {continent} during {month}")
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
@@ -139,7 +139,7 @@ donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Pie chart for {metric_title} averaged in {month} of {year} for selected countries in {continent} ')
+            ).properties(width=250,title=f'Pie chart for {metric_title} averaged in {month} for selected countries in {continent} ')
 
 
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
