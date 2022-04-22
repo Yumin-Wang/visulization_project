@@ -47,14 +47,14 @@ covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_
 continent=st.sidebar.selectbox(label='Continent', options=list(subset['continent'].unique()), index=3)
 subset = subset[subset["continent"] == continent]
 
-countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()))
+countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country']))
 subset = subset[subset["Country"].isin(countries)]
 
 pie_data = subset.copy()
 pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
-metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
+metric = st.sidebar.radio(label='Metrics', fields=['total cases per million','new cases per million','total deaths per million'],options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
 metric_title = metric.replace('_', ' ')
 
 #World_map
@@ -91,7 +91,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
             alt.Tooltip("Country:N", title="Country"),
         ]
     ).properties(
-    title=f'World map for {metric} averaged in {month} of {year}'
+    title=f'World map for {metric_title} averaged in {month} of {year}'
 )
 
 #Trend line for metric
