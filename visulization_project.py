@@ -39,13 +39,13 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-month_dict ={1: 'January', 2 : 'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}
-month=st.sidebar.slider(label='Year', min_value=min(list(month_dict.keys())), max_value=max(list(month_dict.keys())), step=1, value=min(list(month_dict.keys())))
+#month_dict ={1: 'January', 2 : 'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}
+#month=st.sidebar.slider(label='Year', min_value=min(list(month_dict.keys())), max_value=max(list(month_dict.keys())), step=1, value=min(list(month_dict.keys())))
 
-#month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
-print(month_dict[month])
+month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+
                                    
-subset = subset[subset["month"] == month_dict[month]]
+subset = subset[subset["month"] == month]
 
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
