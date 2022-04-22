@@ -103,8 +103,8 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 #Trend line for metric
 metric_base = alt.Chart(subset
  ).mark_line().encode(
-    x='date:O',
-    y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ')),
+    x=alt.X('date:O', title='Date'),
+    y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
 ).properties(
     width=400,
@@ -120,8 +120,8 @@ metric_chart_global = metric_base.properties(height=60).add_selection(brush_metr
 #Trend line for reproduction rate
 r_base = alt.Chart(subset
  ).mark_line().encode(
-    x='date:O',
-    y=alt.Y(field="reproduction_rate",type='quantitative'),
+    x=alt.X('date:O', title='Date'),
+    y=alt.Y(field="reproduction_rate",type='quantitative', title='Reproduction Rate'),
     color='Country:N'
 ).properties(
     width=400,
