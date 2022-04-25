@@ -91,7 +91,7 @@ worldmap_base =alt.Chart(source
     )
 
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
-rate_color = alt.Color(field=metric_title, type="quantitative", scale=rate_scale)
+rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     color=rate_color,
         tooltip=[
@@ -137,7 +137,7 @@ r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 #Bar chart
 bar = alt.Chart(bar_data).mark_bar().encode(
-    y=alt.Y(field=metric, type="quantitative",title=metric.replace('_', ' ').title()),
+    y=alt.Y(field=metric, type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
