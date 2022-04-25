@@ -91,7 +91,7 @@ worldmap_base =alt.Chart(source
     )
 
 rate_scale = alt.Scale(domain=[covid_map_data[metric].min(), covid_map_data[metric].max()])
-rate_color = alt.Color(field=metric, type="quantitative", scale=rate_scale)
+rate_color = alt.Color(field=metric_title, type="quantitative", scale=rate_scale)
 chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWidth=0.15).encode(
     color=rate_color,
         tooltip=[
@@ -135,21 +135,21 @@ r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare rep
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
-#Pie chart
-donut = alt.Chart(pie_data).mark_bar().encode(
-    y=alt.Y(field=metric, type="quantitative"),
+#Bar chart
+bar = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field=metric, type="quantitative",title=metric.replace('_', ' ').title()),
     x=alt.X(field="Country", type="nominal"),
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Pie chart for {metric_title} averaged in {month} of {year} for selected countries in {continent} ')
+            ).properties(width=250,title=f'{metric_title} averaged in {month} of {year} for selected countries in {continent} ')
 
 
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
 
 chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
 
-chart_final = alt.vconcat(chart_trend_worldmap, donut).resolve_scale(color='independent')
+chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
 
 st.altair_chart(chart_final, use_container_width=True)
 
