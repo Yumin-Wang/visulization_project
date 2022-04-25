@@ -53,8 +53,8 @@ subset = subset[subset["continent"] == continent]
 countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()), default=list(subset['Country'].unique())[0])
 subset = subset[subset["Country"].isin(countries)]
 
-pie_data = subset.copy()
-pie_data = pie_data.groupby(['Country', 'country-code']).mean().reset_index()
+bar_data = subset.copy()
+bar_data = bar_data.groupby(['Country', 'country-code']).mean().reset_index()
 
 
 metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
