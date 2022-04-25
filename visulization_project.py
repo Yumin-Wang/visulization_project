@@ -143,7 +143,7 @@ bar = alt.Chart(bar_data).mark_bar().encode(
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'{metric_title} averaged in {month} of {year} for selected countries in {continent} ')
+            ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries in {continent} ')
 
 
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
