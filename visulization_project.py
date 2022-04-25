@@ -136,9 +136,9 @@ r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
 #Pie chart
-donut = alt.Chart(pie_data).mark_arc(innerRadius=50, outerRadius=90).encode(
-    theta=alt.Theta(field=metric, type="quantitative"),
-    color=alt.Color(field="Country", type="nominal"),
+donut = alt.Chart(pie_data).mark_bar().encode(
+    y=alt.Y(field=metric, type="quantitative"),
+    x=alt.X(field="Country", type="nominal"),
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
@@ -152,7 +152,6 @@ chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(colo
 chart_final = alt.vconcat(chart_trend_worldmap, donut).resolve_scale(color='independent')
 
 st.altair_chart(chart_final, use_container_width=True)
-
 
 
 
