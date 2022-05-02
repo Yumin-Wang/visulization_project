@@ -27,7 +27,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
+    #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
 
@@ -58,10 +58,10 @@ subset = subset[subset["month"] == month]
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-continent=st.sidebar.multiselect(label='Continent', options=list(subset['continent'].unique()), default=['Asia','North America'])
+continent=st.sidebar.multiselect(label='Continent', options=list(subset['continent'].unique()))
 subset = subset[subset["continent"] == continent]
 
-countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()), default=['China','United States'])
+countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()))
 subset = subset[subset["Country"].isin(countries)]
 
 bar_data = subset.copy()
