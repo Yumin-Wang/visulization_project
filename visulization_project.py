@@ -173,7 +173,7 @@ st.altair_chart(chart_final, use_container_width=True)
 
 #vaccination bar chart
 vaccine_bar = alt.Chart(bar_data).mark_line().encode(
-    y=alt.Y(field='total_vaccinations'/'population', type="quantitative",axis=alt.Axis(title='Total Vaccinations')),
+    y=alt.Y(field=float('total_vaccinations')/float('population'), type="quantitative",axis=alt.Axis(title='Total Vaccinations')),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
