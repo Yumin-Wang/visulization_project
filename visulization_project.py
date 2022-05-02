@@ -172,14 +172,14 @@ st.altair_chart(chart_final, use_container_width=True)
 
 
 #vaccination bar chart
-vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
-    y=alt.Y(field='total_vaccinations', type="quantitative"),
+vaccine_bar = alt.Chart(bar_data).mark_line().encode(
+    y=alt.Y(field='total_vaccinations', type="quantitative",axis=alt.Axis(title='Total Vaccinations')),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
             alt.Tooltip(field='total_vaccinations', type="quantitative", title="Total Vaccinations"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Compare Total Vaccinations by {month} of {year} for selected countries')
+            ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
 
 #chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
