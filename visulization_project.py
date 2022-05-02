@@ -47,11 +47,11 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-year=st.sidebar.selectbox(label='Year', options=list(subset['year'].unique()))
+year=st.sidebar.selectbox(label='Year', options=list(subset['year'].unique()),index=0)
 #year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-month=st.sidebar.slider(label='Month', min_value=min(df['month']), max_value=max(df['month']), step=1, value=min(df['month']))
+month=st.sidebar.slider(label='Month', step=1, value=['March'])
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
