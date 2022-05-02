@@ -170,17 +170,7 @@ chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='indepe
 
 st.altair_chart(chart_final, use_container_width=True)
 
-#vacciations bar chart
-vaccinations_chart = alt.Chart(bar_data).mark_bar().encode(
-    y=alt.Y(field='total_vaccinations', type="quantitative"),
-    x=alt.X(field="Country", type="nominal"),
-    color='Country:N',
-    tooltip=[
-            alt.Tooltip(field='total_vaccinations', type="quantitative", title=f"Total Vaccinations average over month"),
-            alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Compare Total Vaccinations averaged in {month} of {year} for selected countries')
 
-st.altair_chart(vaccinations_chart, use_container_width=True)
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
