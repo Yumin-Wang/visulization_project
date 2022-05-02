@@ -4,6 +4,7 @@ import datetime as dt
 from datetime import date
 import altair as alt
 import streamlit as st
+import datetime
 
 
 #read data
@@ -27,7 +28,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    #covid['total_vacciations'] = covid['total_vacciations'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='bfill').fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
@@ -48,14 +49,14 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-#year=st.sidebar.selectbox(label='Year', options=['2020','2021','2022'])
-year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
+year=st.sidebar.selectbox(label='Year', options=['2020','2021','2022'])
+#year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
 
 format='MMM'
-#month=st.sidebar.slider(label='Month', min_value=dt.date(month=1),max_value=dt.date(month=12),value=dt.date(month=3), step=1,format=format)
-month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
+month=st.sidebar.slider(label='Month', min_value=dt.date(month=1),max_value=dt.date(month=12),value=dt.date(month=3), step=1,format=format)
+#month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
 
@@ -168,8 +169,6 @@ chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(colo
 chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
 
 st.altair_chart(chart_final, use_container_width=True)
-
-
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
