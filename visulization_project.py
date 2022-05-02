@@ -28,7 +28,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    covid['total_vacciations'] = covid['total_vacciations'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='bfill').fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
