@@ -51,7 +51,7 @@ year=st.sidebar.selectbox(label='Year', options=list(subset['year'].unique()),in
 #year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-month=st.sidebar.slider(label='Month', step=1, value=['March'])
+month=st.sidebar.slider(label='Month', step=1)
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
