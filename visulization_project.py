@@ -51,7 +51,9 @@ year=st.sidebar.selectbox(label='Year', options=['2020','2021','2022'])
 #year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-month=st.sidebar.slider(label='Month', min_value=min(df['month']), max_value=max(df['month']), step=1)
+
+format='MMM'
+month=covid['month'].sidebar.slider(label='Month', min_value=min(df['month']), max_value=max(df['month']), step=1,format=format)
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
