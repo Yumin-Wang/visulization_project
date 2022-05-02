@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime as dt
+from datetime import date
 import altair as alt
 import streamlit as st
 import datetime
@@ -53,7 +54,7 @@ subset = df[df["year"] == year]
 
 
 format='MMM'
-month=st.sidebar.slider(label='Month', min_value=dt.date(month=1),max_value=dt.date(month=12),value=dt.date(month=3), step=1,format=format)
+month=st.sidebar.slider(label='Month', min_value=dt.month(1),max_value=dt.month(12),value=dt.month(3), step=1,format=format)
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
