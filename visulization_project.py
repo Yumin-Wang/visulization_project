@@ -58,7 +58,7 @@ subset = subset[subset["month"] == month]
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-continent=st.sidebar.multiselect(label='Continent', options=list(subset['continent'].unique()))
+#continent=st.sidebar.multiselect(label='Continent', options=list(subset['continent'].unique()))
 subset = subset[subset["continent"] == continent]
 
 countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()))
