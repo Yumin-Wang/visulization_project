@@ -4,7 +4,6 @@ import datetime as dt
 from datetime import date
 import altair as alt
 import streamlit as st
-import datetime
 
 
 #read data
@@ -28,7 +27,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    covid['total_vacciations'] = covid['total_vacciations'].fillna(method='bfill').fillna(method='ffill')
+    #covid['total_vacciations'] = covid['total_vacciations'].fillna(method='bfill').fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
@@ -169,6 +168,8 @@ chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(colo
 chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
 
 st.altair_chart(chart_final, use_container_width=True)
+
+
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
