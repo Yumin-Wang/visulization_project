@@ -54,7 +54,7 @@ subset = df[df["year"] == year]
 
 
 format='MMM'
-month=st.sidebar.slider(label='Month', min_value=['January'],max_value=['December'],value=['March'], step=1)
+month=st.sidebar.slider(label='Month', min_value=1,max_value=12,value=3, step=1,format=format)
 #month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
