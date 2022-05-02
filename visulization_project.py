@@ -173,7 +173,7 @@ st.altair_chart(chart_final, use_container_width=True)
 
 #vaccination bar chart
 vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
-    max_vax = 'max(total_vaccinations)'
+    max_vax = 'count(total_vaccinations)'
 ).transform_calculate(
     vax_by_pop = 'max_vax / population'
 ).encode(
