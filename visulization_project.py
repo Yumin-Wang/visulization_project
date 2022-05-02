@@ -13,7 +13,7 @@ def load_data():
     covid = pd.read_csv("https://raw.githubusercontent.com/Yumin-Wang/visulization_project/main/owid-covid-data.csv")
     country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str})[['Country','country-code']]
     covid = covid[['iso_code','continent','location','date','total_cases_per_million','new_cases_per_million','total_deaths_per_million','reproduction_rate','population',
-    'median_age','handwashing_facilities','hospital_beds_per_thousand','life_expectancy','diabetes_prevalence','female_smokers','male_smokers']]
+    'median_age','handwashing_facilities','hospital_beds_per_thousand', 'total_vaccinations','life_expectancy','diabetes_prevalence','female_smokers','male_smokers']]
     covid['date'] = pd.to_datetime(covid['date'])
     covid = covid[(covid['date']>='2020-03-01')&(covid['date']<='2022-03-31')]
     covid['month'] = covid['date'].dt.strftime('%B')
@@ -28,6 +28,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_vacciations'] = covid['total_vacciations'].fillna(method='bfill').fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
@@ -169,8 +170,17 @@ chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='indepe
 
 st.altair_chart(chart_final, use_container_width=True)
 
+#vacciations bar chart
+vaccinations_chart = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field='total_vaccinations', type="quantitative"),
+    x=alt.X(field="Country", type="nominal"),
+    color='Country:N',
+    tooltip=[
+            alt.Tooltip(field=metric, type="quantitative", title=f"Total Vaccinations average over month"),
+            alt.Tooltip("Country:N", title="Country")]
+            ).properties(width=250,title=f'Compare Total Vaccinations averaged in {month} of {year} for selected countries')
 
-
+st.altair_chart(vaccinations_chart, use_container_width=True)
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
