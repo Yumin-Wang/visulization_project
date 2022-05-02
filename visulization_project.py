@@ -172,7 +172,7 @@ st.altair_chart(chart_final, use_container_width=True)
 
 
 #vaccination bar chart
-vaccine_bar = alt.Chart(bar_data).mark_line().transform_aggregate(
+vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
     max_vax = 'max(total_vaccinations)',
     groupby=['Country']
 ).transform_calculate(
