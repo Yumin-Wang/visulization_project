@@ -147,13 +147,13 @@ r_base = alt.Chart(subset
     width=400,
     height=300
 ) 
-
+#brushing for x axis selection
 brush_r =  alt.selection(type='interval', encodings=['x'])
 r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in during {month} of {year}")
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
-#Bar chart
+#Bar chart for metric
 bar = alt.Chart(bar_data).mark_bar().encode(
     y=alt.Y(field=metric, type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
@@ -173,6 +173,7 @@ vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
+#create page layouts of charts
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
 
 chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
@@ -182,21 +183,6 @@ chart_bar=alt.hconcat(bar,vaccine_bar)
 chart_final = alt.vconcat(chart_trend_worldmap, chart_bar).resolve_scale(color='independent')
 
 st.altair_chart(chart_final, use_container_width=True)
-
-
-
-
-
-#chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
-
-#chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
-
-#chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
-
-#st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
-#st.altair_chart(chart_worldmap, use_container_width=True)
-#st.altair_chart(donut, use_container_width=True)
-
 
 
 
