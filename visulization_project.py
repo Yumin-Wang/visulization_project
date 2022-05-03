@@ -173,7 +173,7 @@ st.altair_chart(chart_final, use_container_width=True)
 
 #vaccination bar chart
 vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
-    y=alt.Y(field='sum(total_vaccinations)', type="quantitative"),
+    y=alt.Y(field='total_vaccinations', type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
