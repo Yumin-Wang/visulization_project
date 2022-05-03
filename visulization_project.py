@@ -84,6 +84,7 @@ height_worldmap=300
 selector = alt.selection_single(
     on="click")
 
+#fill in worldmap
 background = alt.Chart(source
 ).mark_geoshape(
     fill='#aaa',
@@ -129,7 +130,7 @@ metric_base = alt.Chart(subset
     width=400,
     height=300
 ) 
-
+#add brushing to x axis slections
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
 metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in during {month} of {year}")
