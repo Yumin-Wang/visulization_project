@@ -122,6 +122,9 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 )
 
 #Trend line for metric
+nearest = alt.selection(type='single', nearest=True, on='mouseover',
+                        fields=['date:0'], empty='none')
+
 metric_base = alt.Chart(subset
  ).mark_line().encode(
     x=alt.X('date:O', title='Date'),
@@ -131,8 +134,6 @@ metric_base = alt.Chart(subset
     width=400,
     height=300
 ) 
-nearest = alt.selection(type='single', nearest=True, on='mouseover',
-                        fields=['date'], empty='none')
 
 # Transparent selectors across the chart. This is what tells us
 # the x-value of the cursor
