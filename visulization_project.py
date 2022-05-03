@@ -172,12 +172,8 @@ st.altair_chart(chart_final, use_container_width=True)
 
 
 #vaccination bar chart
-vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
-    max_vax = 'count(total_vaccinations)'
-).transform_calculate(
-    vax_by_pop = 'max_vax / population'
-).encode(
-    y=alt.Y(field='vax_by_pop', type="quantitative",axis=alt.Axis(title='Total Vaccinations')),
+vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field='total_vaccinations:Q', axis=alt.Axis(title='Total Vaccinations')),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
