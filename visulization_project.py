@@ -163,7 +163,15 @@ bar = alt.Chart(bar_data).mark_bar().encode(
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries')
 
-
+#vaccination bar chart
+vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field='total_vaccinations', type="quantitative"),
+    x=alt.X(field="Country", type="nominal"),
+    color='Country:N',
+    tooltip=[
+            alt.Tooltip(field='total_vaccinations', type="quantitative", title="Total Vaccinations"),
+            alt.Tooltip("Country:N", title="Country")]
+            ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
 #create page layouts of charts
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
