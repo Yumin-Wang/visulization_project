@@ -174,7 +174,7 @@ vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
-            alt.Tooltip(field='total_vaccinations', type="quantitative", title=f'Total Vaccination in {month} of {year}'),
+            alt.Tooltip(field='latest_vaccinations_by_month', type="quantitative", title=f'Total Vaccination in {month} of {year}'),
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
