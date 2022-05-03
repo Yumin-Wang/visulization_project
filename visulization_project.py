@@ -131,6 +131,48 @@ metric_base = alt.Chart(subset
     width=400,
     height=300
 ) 
+nearest = alt.selection(type='single', nearest=True, on='mouseover',
+                        fields=['date'], empty='none')
+
+# Transparent selectors across the chart. This is what tells us
+# the x-value of the cursor
+selectors = alt.Chart(subset).mark_point().encode(
+    x='date:0',
+    opacity=alt.value(0),
+).add_selection(
+    nearest
+)
+
+# Draw points on the line, and highlight based on selection
+points = linechart.mark_point().encode(
+    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+)
+# Draw points on the line, and highlight based on selection
+points = linechart.mark_point().encode(
+    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
+)
+
+# Draw text labels near the points, and highlight based on selection
+text = linechart.mark_text(align='left', dx=5, dy=-5).encode(
+    text=alt.condition(nearest, metric, alt.value(' '))
+)
+
+# Draw a rule at the location of the selection
+rules = alt.Chart(source).mark_rule(color='gray').encode(
+    x='date:0',
+).transform_filter(
+    nearest
+)
+
+# Put the five layers into a chart and bind the data
+alt.layer(
+    metric_base, selectors, points, rules, text
+).properties(
+    width=600, height=300
+)
+
+
+
 #add brushing to x axis slections
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
