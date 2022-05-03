@@ -40,6 +40,7 @@ def load_data():
     covid.dropna(inplace=True)
     return covid
 
+#call load datafunction
 df = load_data()
 
 
