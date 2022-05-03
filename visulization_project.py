@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime as dt
+from datetime import date
 import altair as alt
 import streamlit as st
 import datetime
@@ -11,7 +12,8 @@ import datetime
 def load_data():
     covid = pd.read_csv("https://raw.githubusercontent.com/Yumin-Wang/visulization_project/main/owid-covid-data.csv")
     country_df = pd.read_csv('https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/country_codes.csv', dtype = {'conuntry-code': str})[['Country','country-code']]
-    covid = covid[['iso_code','continent','location','date','total_cases_per_million','new_cases_per_million','total_deaths_per_million','reproduction_rate','population']]
+    covid = covid[['iso_code','continent','location','date','total_cases_per_million','new_cases_per_million','total_deaths_per_million','reproduction_rate','population',
+    'median_age','handwashing_facilities','hospital_beds_per_thousand', 'total_vaccinations','life_expectancy','diabetes_prevalence','female_smokers','male_smokers']]
     covid['date'] = pd.to_datetime(covid['date'])
     covid = covid[(covid['date']>='2020-03-01')&(covid['date']<='2022-03-31')]
     covid['month'] = covid['date'].dt.strftime('%B')
@@ -22,6 +24,17 @@ def load_data():
     covid['total_deaths_per_million']= covid['total_deaths_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['reproduction_rate']= covid['reproduction_rate'].fillna(method='bfill').fillna(method='ffill')
     country_df['Country'] = country_df['Country'].replace(['United States of America','United Kingdom of Great Britain and Northern Ireland'],['United States','United Kingdom'])
+    covid['median_age'] = covid['median_age'].fillna(method='bfill').fillna(method='ffill')
+    covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
+    covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
+    covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='bfill').fillna(method='ffill')
+    #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
+    covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
+    covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
+
+
+
     covid.rename(columns = {'location' : 'Country'}, inplace = True)
     covid = covid.merge(country_df,how='left',on='Country')
     covid.dropna(inplace=True)
@@ -36,10 +49,13 @@ source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-
+#year=st.sidebar.selectbox(label='Year', options=['2020','2021','2022'])
 year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
+
+format='MMM'
+#month=st.sidebar.slider(label='Month', min_value=dt.date(month=1),max_value=dt.date(month=12),value=dt.date(month=3), step=1,format=format)
 month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
@@ -47,10 +63,10 @@ subset = subset[subset["month"] == month]
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-continent=st.sidebar.selectbox(label='Continent', options=list(subset['continent'].unique()), index=3)
-subset = subset[subset["continent"] == continent]
+#continent=st.sidebar.multiselect(label='Continent', options=list(subset['continent'].unique()))
+#subset = subset[subset["continent"] == continent]
 
-countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()), default=list(subset['Country'].unique())[0])
+countries=st.sidebar.multiselect(label='Countries', options=list(subset['Country'].unique()), default=['China','United States','United Kingdom','South Africa'])
 subset = subset[subset["Country"].isin(countries)]
 
 bar_data = subset.copy()
@@ -115,7 +131,7 @@ metric_base = alt.Chart(subset
 
 brush_metric =  alt.selection(type='interval', encodings=['x'])
 
-metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in {continent} during {month} of {year}")
+metric_chart_detail = metric_base.transform_filter(brush_metric).properties(title=f"Compare {metric_title} in selected countries in during {month} of {year}")
 metric_chart_global = metric_base.properties(height=60).add_selection(brush_metric)
 
 
@@ -131,7 +147,7 @@ r_base = alt.Chart(subset
 ) 
 
 brush_r =  alt.selection(type='interval', encodings=['x'])
-r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in {continent} during {month} of {year}")
+r_chart_detail = r_base.transform_filter(brush_r).properties(title=f"Compare reproduction rate in selected countries in during {month} of {year}")
 r_chart_global = r_base.properties(height=60).add_selection(brush_r)
 
 
@@ -143,7 +159,7 @@ bar = alt.Chart(bar_data).mark_bar().encode(
     tooltip=[
             alt.Tooltip(field=metric, type="quantitative", title=f"{metric_title} average over month"),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries in {continent} ')
+            ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries')
 
 
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
@@ -155,7 +171,24 @@ chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='indepe
 st.altair_chart(chart_final, use_container_width=True)
 
 
+#vaccination bar chart
+vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field='total_vaccinations', type="quantitative"),
+    x=alt.X(field="Country", type="nominal"),
+    color='Country:N',
+    tooltip=[
+            alt.Tooltip(field='reproduction_rate', type="quantitative", title="Total Vaccinations"),
+            alt.Tooltip("Country:N", title="Country")]
+            ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
+
+#chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
+
+#chart_trend_worldmap=alt.vconcat(chart_trend, chart_worldmap).resolve_scale(color='independent')
+
+#chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
+
+st.altair_chart(vaccine_bar, use_container_width=True)
 
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
