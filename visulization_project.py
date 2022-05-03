@@ -164,13 +164,8 @@ bar = alt.Chart(bar_data).mark_bar().encode(
             ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries')
 
 #vaccination bar chart
-vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
-    most_recent_vax='argmax(total_vaccinations)',
-    groupby=['Country']
-).transform_calculate(
-    correct_vax='datum.most_recent_vax.total_vaccinations'
-).encode(
-    y=alt.Y(field='correct_vax', type="quantitative"),
+vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
+    y=alt.Y(field='total_vaccinations', type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
