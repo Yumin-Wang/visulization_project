@@ -22,6 +22,7 @@ def load_data():
     covid['total_cases_per_million']= covid['total_cases_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['new_cases_per_million']= covid['new_cases_per_million'].fillna(method='bfill').fillna(method='ffill')
     covid['total_deaths_per_million']= covid['total_deaths_per_million'].fillna(method='bfill').fillna(method='ffill')
+    covid['population']=covid['population'].fillna(method='bfill').fillna(method='ffill')
     covid['reproduction_rate']= covid['reproduction_rate'].fillna(method='bfill').fillna(method='ffill')
     country_df['Country'] = country_df['Country'].replace(['United States of America','United Kingdom of Great Britain and Northern Ireland'],['United States','United Kingdom'])
     covid['median_age'] = covid['median_age'].fillna(method='bfill').fillna(method='ffill')
@@ -165,7 +166,7 @@ bar = alt.Chart(bar_data).mark_bar().encode(
 
 #vaccination bar chart
 vaccine_bar = alt.Chart(subset).mark_bar().transform_aggregate(
-    most_recent_vax='argmax(total_vaccinations)',
+    most_recent_vax='argmax(total_vaccinations)/population',
     groupby=['Country','month','year']
 ).transform_calculate(
     latest_vaccinations_by_month='datum.most_recent_vax.total_vaccinations'
@@ -174,9 +175,9 @@ vaccine_bar = alt.Chart(subset).mark_bar().transform_aggregate(
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
-            alt.Tooltip(field='latest_vaccinations_by_month', type="quantitative", title=f'Total Vaccination in {month} of {year}'),
+            alt.Tooltip(field='latest_vaccinations_by_month', type="quantitative", title=f'Total Vaccination by end of {month} of {year}'),
             alt.Tooltip("Country:N", title="Country")]
-            ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
+            ).properties(width=250,title=f'Compare total vaccinations by end of {month} of {year} for selected countries')
 
 
 #create page layouts of charts
