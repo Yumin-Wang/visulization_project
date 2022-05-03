@@ -151,7 +151,7 @@ points = metric_base.mark_point().encode(
 
 # Draw text labels near the points, and highlight based on selection
 text = metric_base.mark_text(align='left', dx=5, dy=-5).encode(
-    text=alt.condition(nearest, 'metric', alt.value(' '))
+    text=alt.condition(nearest, metric, alt.value(' '))
 )
 
 # Draw a rule at the location of the selection
