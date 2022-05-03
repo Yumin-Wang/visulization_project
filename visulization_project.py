@@ -34,7 +34,7 @@ def load_data():
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
 
 
-
+#rename columns, merge with country dataframe
     covid.rename(columns = {'location' : 'Country'}, inplace = True)
     covid = covid.merge(country_df,how='left',on='Country')
     covid.dropna(inplace=True)
