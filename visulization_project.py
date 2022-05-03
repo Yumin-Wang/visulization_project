@@ -144,16 +144,16 @@ selectors = alt.Chart(subset).mark_point().encode(
 )
 
 # Draw points on the line, and highlight based on selection
-points = linechart.mark_point().encode(
+points = metric_base.mark_point().encode(
     opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
 # Draw points on the line, and highlight based on selection
-points = linechart.mark_point().encode(
+points = metric_base.mark_point().encode(
     opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
 
 # Draw text labels near the points, and highlight based on selection
-text = linechart.mark_text(align='left', dx=5, dy=-5).encode(
+text = metric_base.mark_text(align='left', dx=5, dy=-5).encode(
     text=alt.condition(nearest, metric, alt.value(' '))
 )
 
