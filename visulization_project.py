@@ -57,9 +57,11 @@ subset = df[df["year"] == year]
 #make month select box
 format='MMM'
 month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
-                                   
+
+#subset by month selected                                   
 subset = subset[subset["month"] == month]
 
+#subset & group for country selections
 covid_map_data = subset.copy()
 covid_map_data=covid_map_data.groupby(['Country', 'country-code']).mean().reset_index()
 
