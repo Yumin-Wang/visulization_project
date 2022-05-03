@@ -151,12 +151,12 @@ points = metric_base.mark_point().encode(
 
 # Draw text labels near the points, and highlight based on selection
 text = metric_base.mark_text(align='left', dx=5, dy=-5).encode(
-    text=alt.condition(nearest, 'test', alt.value(' '))
+    text=alt.condition(nearest, metric, alt.value(' '))
 )
 
 # Draw a rule at the location of the selection
 rules = alt.Chart(source).mark_rule(color='gray').encode(
-    x='date:0',
+    x='date:O',
 ).transform_filter(
     nearest
 )
