@@ -7,7 +7,7 @@ import streamlit as st
 import datetime
 
 
-#read data
+#read data and define variables
 @st.cache
 def load_data():
     covid = pd.read_csv("https://raw.githubusercontent.com/Yumin-Wang/visulization_project/main/owid-covid-data.csv")
