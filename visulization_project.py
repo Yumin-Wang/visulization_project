@@ -73,11 +73,11 @@ subset = subset[subset["Country"].isin(countries)]
 bar_data = subset.copy()
 bar_data = bar_data.groupby(['Country', 'country-code']).mean().reset_index()
 
-
+#make radio buttons select for metric
 metric = st.sidebar.radio(label='Metrics', options=['total_cases_per_million','new_cases_per_million','total_deaths_per_million'], index=1)
 metric_title = metric.replace('_', ' ')
 
-#World_map
+#World_map layout
 width_worldmap=600
 height_worldmap=300
 
