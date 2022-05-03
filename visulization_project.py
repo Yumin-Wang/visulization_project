@@ -54,9 +54,8 @@ st.write("## COVID-19 Worldwide Metrics Over Time")
 year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
-
+#make month select box
 format='MMM'
-#month=st.sidebar.slider(label='Month', min_value=dt.date(month=1),max_value=dt.date(month=12),value=dt.date(month=3), step=1,format=format)
 month=st.sidebar.selectbox(label='Month', options=list(subset['month'].unique()), index=2)
                                    
 subset = subset[subset["month"] == month]
