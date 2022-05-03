@@ -191,8 +191,6 @@ st.altair_chart(chart_final, use_container_width=True)
 
 #chart_final = alt.vconcat(chart_trend_worldmap, bar).resolve_scale(color='independent')
 
-st.altair_chart(vaccine_bar, use_container_width=True)
-
 #st.altair_chart(metric_chart_detail&metric_chart_global, use_container_width=True)
 #st.altair_chart(chart_worldmap, use_container_width=True)
 #st.altair_chart(donut, use_container_width=True)
