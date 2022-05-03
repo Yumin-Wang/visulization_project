@@ -166,7 +166,8 @@ rules = alt.Chart(source).mark_rule(color='gray').encode(
  #   metric_base, selectors, points, rules, text
 #)
 
-st.altair_chart(metric_base + selectors + points + rules + text)
+#streamlit has issues with layered altair charts, decided to take out
+#st.altair_chart(metric_base + selectors + points + rules + text)
 
 
 
