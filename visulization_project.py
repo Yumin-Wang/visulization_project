@@ -130,7 +130,10 @@ metric_base = alt.Chart(subset
     x=alt.X('date:O', title='Date'),
     y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
-)
+).properties(
+    width=400,
+    height=300
+) 
 
 # Transparent selectors across the chart. This is what tells us
 # the x-value of the cursor
@@ -161,10 +164,7 @@ rules = alt.Chart(source).mark_rule(color='gray').encode(
 # Put the five layers into a chart and bind the data
 alt.layer(
     metric_base, selectors, points, rules, text
-).properties(
-    width=400,
-    height=300
-) 
+)
 
 
 
