@@ -47,10 +47,10 @@ df = load_data()
 #read map background data
 source = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/world-110m.json', 'countries')
 
-
+#Title of page
 st.write("## COVID-19 Worldwide Metrics Over Time")
 
-#year=st.sidebar.selectbox(label='Year', options=['2020','2021','2022'])
+#make year slider
 year=st.sidebar.slider(label='Year', min_value=min(df['year']), max_value=max(df['year']), step=1, value=min(df['year']))
 subset = df[df["year"] == year]
 
