@@ -126,7 +126,7 @@ nearest = alt.selection(type='single', nearest=True, on='mouseover',
                         fields=['date'], empty='none')
 
 metric_base = alt.Chart(subset
- ).mark_line().encode(
+ ).mark_line(interpolate='basis').encode(
     x=alt.X('date:O', title='Date'),
     y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
