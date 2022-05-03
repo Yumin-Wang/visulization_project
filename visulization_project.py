@@ -123,17 +123,14 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 
 #Trend line for metric
 nearest = alt.selection(type='single', nearest=True, on='mouseover',
-                        fields=['date:0'], empty='none')
+                        fields=['date'], empty='none')
 
 metric_base = alt.Chart(subset
  ).mark_line().encode(
     x=alt.X('date:O', title='Date'),
     y=alt.Y(field=metric,type='quantitative', title=metric.replace('_', ' ').title()),
     color='Country:N'
-).properties(
-    width=400,
-    height=300
-) 
+)
 
 # Transparent selectors across the chart. This is what tells us
 # the x-value of the cursor
@@ -148,14 +145,10 @@ selectors = alt.Chart(subset).mark_point().encode(
 points = metric_base.mark_point().encode(
     opacity=alt.condition(nearest, alt.value(1), alt.value(0))
 )
-# Draw points on the line, and highlight based on selection
-points = metric_base.mark_point().encode(
-    opacity=alt.condition(nearest, alt.value(1), alt.value(0))
-)
 
 # Draw text labels near the points, and highlight based on selection
 text = metric_base.mark_text(align='left', dx=5, dy=-5).encode(
-    text=alt.condition(nearest, metric, alt.value(' '))
+    text=alt.condition(nearest, 'test', alt.value(' '))
 )
 
 # Draw a rule at the location of the selection
@@ -169,8 +162,9 @@ rules = alt.Chart(source).mark_rule(color='gray').encode(
 alt.layer(
     metric_base, selectors, points, rules, text
 ).properties(
-    width=600, height=300
-)
+    width=400,
+    height=300
+) 
 
 
 
