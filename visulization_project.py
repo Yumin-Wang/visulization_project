@@ -28,7 +28,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='bfill').fillna(method='ffill')
+    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
@@ -164,14 +164,20 @@ bar = alt.Chart(bar_data).mark_bar().encode(
             ).properties(width=250,title=f'Compare {metric_title} averaged in {month} of {year} for selected countries')
 
 #vaccination bar chart
-vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
-    y=alt.Y(field='total_vaccinations', type="quantitative"),
+vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
+    most_recent_vax='argmax(vaccination)',
+    groupby=['Country']
+).transform_calculate(
+    correct_vax='datum.most_recent_vax.vaccination'
+).encode(
+    y=alt.Y(field='correct_vax', type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
-            alt.Tooltip(field='total_vaccinations', type="quantitative", title="Total Vaccinations"),
+            alt.Tooltip(field='correct_vaccinations', type="quantitative", title="Total Vaccination in {month} of {year}"),
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
+
 
 #create page layouts of charts
 chart_trend=alt.hconcat(metric_chart_detail&metric_chart_global, r_chart_detail&r_chart_global).resolve_scale(color='independent')
