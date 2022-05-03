@@ -162,9 +162,11 @@ rules = alt.Chart(source).mark_rule(color='gray').encode(
 )
 
 # Put the five layers into a chart and bind the data
-alt.layer(
-    metric_base, selectors, points, rules, text
-)
+#alt.layer(
+ #   metric_base, selectors, points, rules, text
+#)
+
+st.altair_chart(metric_base + selectors + points + rules + text)
 
 
 
