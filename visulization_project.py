@@ -28,7 +28,7 @@ def load_data():
     covid['handwashing_facilities'] = covid['handwashing_facilities'].fillna(method='bfill').fillna(method='ffill')
     covid['hospital_beds_per_thousand'] = covid['hospital_beds_per_thousand'].fillna(method='bfill').fillna(method='ffill')
     covid['life_expectancy'] = covid['life_expectancy'].fillna(method='bfill').fillna(method='ffill')
-    covid['total_vaccinations'] = covid['total_vaccinations']
+    covid['total_vaccinations'] = covid['total_vaccinations'].fillna(method='ffill')
     #covid['diabetes_prevalance'] = covid['diabetes_prevalance'].fillna(method='bfill').fillna(method='ffill')
     covid['female_smokers'] = covid['female_smokers'].fillna(method='bfill').fillna(method='ffill')
     covid['male_smokers'] = covid['male_smokers'].fillna(method='bfill').fillna(method='ffill')
@@ -169,7 +169,7 @@ vaccine_bar = alt.Chart(bar_data).mark_bar().encode(
     x=alt.X(field="Country", type="nominal"),
     color='Country:N',
     tooltip=[
-            alt.Tooltip(field='total_vaccinations', type="quantitative", title=f"Total Vaccination in {month} of {year}"),
+            alt.Tooltip(field='total_vaccinations', type="quantitative", title=f'Total Vaccination in {month} of {year}'),
             alt.Tooltip("Country:N", title="Country")]
             ).properties(width=250,title=f'Compare total vaccinations by {month} of {year} for selected countries')
 
