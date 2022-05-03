@@ -166,9 +166,9 @@ bar = alt.Chart(bar_data).mark_bar().encode(
 #vaccination bar chart
 vaccine_bar = alt.Chart(bar_data).mark_bar().transform_aggregate(
     most_recent_vax='argmax(total_vaccinations)',
-    groupby=['country']
+    groupby=['country','month','year']
 ).transform_calculate(
-    latest_vaccination_by_month='datum.most_recent_vax.total_vaccinations'
+    latest_vaccinations_by_month='datum.most_recent_vax.total_vaccinations'
 ).encode(
     y=alt.Y(field='latest_vaccinations_by_month', type="quantitative"),
     x=alt.X(field="Country", type="nominal"),
