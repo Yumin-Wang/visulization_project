@@ -123,7 +123,7 @@ chart_worldmap = background+worldmap_base.mark_geoshape(stroke="black", strokeWi
 
 #Trend line for metric
 nearest = alt.selection(type='single', nearest=True, on='mouseover',
-                        fields=['date:N'], empty='none')
+                        fields=['date'], empty='none')
 
 metric_base = alt.Chart(subset
  ).mark_line().encode(
